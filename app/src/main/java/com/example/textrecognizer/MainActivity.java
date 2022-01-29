@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
@@ -51,10 +52,18 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.CAMERA
             }, REQUEST_CAMERA_CODE);
 
-            capture_button.setOnClickListener(v ->
-                    CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .start(MainActivity.this));
+
+//            capture_button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    CropImage.activity()
+//                            .setGuidelines(CropImageView.Guidelines.ON)
+//                            .start(MainActivity.this);
+//                    Log.i("hello", "onClick: clicked");
+//
+//                    text_data.setText("hi");
+//                }
+//            });
 
             copy_button.setOnClickListener(v -> {
                 String scannedText = text_data.getText().toString();
@@ -72,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK)
             {
-                assert result != null;
                 Uri resultURI = result.getUri();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultURI);
@@ -103,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 TextBlock textBlock = textBlockSparseArray.valueAt(i);
                 stringBuilder.append(textBlock.getValue());
-                stringBuilder.append('\n');
+                stringBuilder.append("\n");
             }
 
             text_data.setText(stringBuilder.toString());
@@ -122,5 +130,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    public void openCamera(View view) {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(MainActivity.this);
     }
 }

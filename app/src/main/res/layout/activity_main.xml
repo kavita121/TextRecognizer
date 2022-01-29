@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_above="@id/linearLayout"
         android:layout_width="match_parent"
+        android:layout_margin="8dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -20,8 +21,6 @@
             android:id="@+id/text_data"
             />
     </ScrollView>
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_alignParentBottom="true"
@@ -33,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Capture"
+            android:onClick="openCamera"
             android:layout_margin="8dp"
             android:id="@+id/capture_button"
             />
